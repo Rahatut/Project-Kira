@@ -6,10 +6,12 @@
 using namespace std;
 
 bool running = true; // Process running
-float playerspeed = 7.0f;
+float playerspeed = 6.0f;
 Texture2D playerSprite;
 int framewidth = 96;
-
+int gravity = 1;
+int ground = 500; // Adjusted for a more visible ground position
+bool playerMoving = false;
 // Player position and velocity
 Vector2 playerPosition;
 Vector2 playerVelocity;
@@ -21,9 +23,12 @@ Rectangle playerDest; // Destination rectangle for player position
 unsigned frameDelay = 5;
 unsigned frameDelayCounter = 0;
 unsigned frameIndex = 0;
+unsigned jumpUpFrame = 3;     // Adjusted jump-up frame
+unsigned jumpDownFrame = 4;   // Adjusted jump-down frame
+unsigned numFrames = 6;       // Number of animation frames
 
 // Constants for screen dimensions
-const int SCREEN_WIDTH = 1200;
+const int SCREEN_WIDTH = 1500;
 const int SCREEN_HEIGHT = 800;
 
 // Initialize the game window and settings
@@ -36,7 +41,13 @@ void init() {
     playerSprite = LoadTexture("RUN.png");
     playerSrc = {0, 0, 96, 96}; // Source rectangle: part of the texture to draw
     playerDest = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 50, 50}; // Center player
-    playerPosition = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
+    playerPosition = {SCREEN_WIDTH / 2.0f, ground - playerSrc.height};
+    playerVelocity = {0.0f, 0.0f};
+}
+
+// Function to check if the player is on the ground
+bool IsOnGround() {
+    return playerPosition.y >= ground - playerSrc.height;
 }
 
 // Draw the game scene
@@ -47,34 +58,62 @@ void drawscene() {
 
 // Handle user input and update animation
 void input() {
-    playerVelocity = {0.0f, 0.0f}; // Reset velocity
-    bool playerMoving = false;     // Reset moving flag
+    playerVelocity.x = 0.0f; // Reset horizontal velocity
+    bool playerMoving = false;
+    
+    // Check if player is on the ground to allow jump
+    if (IsOnGround() && IsKeyDown(KEY_SPACE)) {
+        playerVelocity.y = -3 * playerspeed; // Jump
+        playerMoving = true;
+    }
 
+    // Horizontal movement (left/right)
     if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
         playerVelocity.x = -playerspeed;
         playerMoving = true;
-        if(playerSrc.width > 0) {
-				playerSrc.width = -playerSrc.width;
+        if (playerSrc.width > 0) {
+            playerSrc.width = -playerSrc.width; // Face left
         }
-
-    }
+    } 
     if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
         playerVelocity.x = playerspeed;
         playerMoving = true;
-        if(playerSrc.width < 0) {
-				playerSrc.width = -playerSrc.width;
+        if (playerSrc.width < 0) {
+            playerSrc.width = -playerSrc.width; // Face right
         }
     }
 
-    playerPosition.x += playerVelocity.x; // Update player position
+    // Apply gravity if player is in the air
+    if (!IsOnGround()) {
+        playerVelocity.y += gravity; // Apply gravity when airborne
+    }
 
-    // Update animation frame if the player is moving
+    // Update player position based on velocity
+    playerPosition.x += playerVelocity.x;
+    playerPosition.y += playerVelocity.y;
+
+    // Check if player has hit the ground
+    if (playerPosition.y >= ground - playerSrc.height) {
+        playerVelocity.y = 0; // Stop downward velocity
+        playerPosition.y = ground - playerSrc.height; // Set to ground level
+    }
+
+    // Update animation frame based on movement and jumping state
     if (playerMoving) {
         frameDelayCounter++;
         if (frameDelayCounter >= frameDelay) {
             frameDelayCounter = 0;
-            frameIndex++;
-            frameIndex %= 9; // Loop animation frames
+
+            // Jumping frames
+            if (playerVelocity.y < 0) {
+                frameIndex = jumpUpFrame; // Jumping up frame
+            } else if (playerVelocity.y > 0 && !IsOnGround()) {
+                frameIndex = jumpDownFrame; // Falling frame
+            } else {  
+                // Regular running/walking animation
+                frameIndex++;
+                frameIndex %= 9; // Loop animation frames
+            }
             playerSrc.x = (float)frameIndex * framewidth;
         }
     } else {
