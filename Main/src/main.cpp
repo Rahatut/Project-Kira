@@ -1,84 +1,86 @@
-#include "raylib/raylib.h"
 #include <iostream>
 #include <raylib.h>
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For time()
 
 using namespace std;
-int num1, num2, num3;
-bool running = true; // Process running
-float playerspeed = 3;
-Texture2D asset[3]; // Asset textures
-Texture2D bg, mid_bg;
-Texture2D playerSprite; // Declare the player texture
 
-Rectangle playerDest; // Destination rectangle for the player
-Rectangle playerSrc;  // Source rectangle for the player
+bool running = true; // Process running
+float playerspeed = 7.0f;
+Texture2D playerSprite;
+int framewidth = 96;
+
+// Player position and velocity
+Vector2 playerPosition;
+Vector2 playerVelocity;
+
+// Source rectangle for player animation
+Rectangle playerSrc;  
+Rectangle playerDest; // Destination rectangle for player position
+
+unsigned frameDelay = 5;
+unsigned frameDelayCounter = 0;
+unsigned frameIndex = 0;
 
 // Constants for screen dimensions
-const int SCREEN_WIDTH = 384;
-const int SCREEN_HEIGHT = 288;
-
-// Flag to track whether assets need to be updated
-bool updateAssets = true;
-
-// Function to populate assets
-void populate() {
-    if (updateAssets) {
-        num1 = rand() % 3;
-        num2 = rand() % 3;
-        num3 = rand() % 3;
-
-        updateAssets = false; // Set the flag to false after populating
-    }
-}
+const int SCREEN_WIDTH = 1200;
+const int SCREEN_HEIGHT = 800;
 
 // Initialize the game window and settings
 void init() {
-    populate();
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Project Kira");
     SetExitKey(0); // Disable the default exit key
     SetTargetFPS(60); // Set the target frames per second
 
-    // Load textures
-    bg = LoadTexture("background.png");
-    mid_bg = LoadTexture("middleground.png");
-    asset[0] = LoadTexture("house-a.png");
-    asset[1] = LoadTexture("wagon.png");
-    asset[2] = LoadTexture("crate-stack.png");
-
-    playerSprite = LoadTexture("Basic Charakter Spritesheet.png");
-
-    // Initialize source and destination rectangles for the player
-    playerSrc = {0, 0, 48, 48}; // Source rectangle: part of the texture to draw
-    playerDest = {20, 244, 50, 50}; // Destination rectangle: where to draw it on screen
+    // Load player texture and initialize animation frame
+    playerSprite = LoadTexture("RUN.png");
+    playerSrc = {0, 0, 96, 96}; // Source rectangle: part of the texture to draw
+    playerDest = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 50, 50}; // Center player
+    playerPosition = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
 }
 
 // Draw the game scene
 void drawscene() {
-    DrawTexture(bg, 0, 0, WHITE); 
-    DrawTexture(mid_bg, 0, 0, WHITE); 
-    DrawTexture(asset[num1], 0, 64, WHITE);  // First texture
-    DrawTexture(asset[num2], 168, 64, WHITE); // Second texture
-    DrawTexture(asset[num3], 336, 64, WHITE);  // Third texture
-    DrawTexturePro(playerSprite, playerSrc, playerDest, (Vector2){playerDest.width / 2, playerDest.height / 2}, 0.0f, WHITE);
+    // Draw the player with animation
+    DrawTexturePro(playerSprite, playerSrc, {playerPosition.x, playerPosition.y, 400, 400}, {48, 48}, 0.0f, WHITE);
 }
 
-// Handle user input
+// Handle user input and update animation
 void input() {
+    playerVelocity = {0.0f, 0.0f}; // Reset velocity
+    bool playerMoving = false;     // Reset moving flag
+
     if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
-        playerDest.x -= playerspeed;
-    }
+        playerVelocity.x = -playerspeed;
+        playerMoving = true;
+        if(playerSrc.width > 0) {
+				playerSrc.width = -playerSrc.width;
+        }
 
+    }
     if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
-        playerDest.x += playerspeed;
+        playerVelocity.x = playerspeed;
+        playerMoving = true;
+        if(playerSrc.width < 0) {
+				playerSrc.width = -playerSrc.width;
+        }
     }
 
-    // Check if the player moves out of the screen
-    if (playerDest.x > SCREEN_WIDTH) {
-        playerDest.x = 0; // Reset the player's x position to the left side
-        updateAssets = true; // Set the flag to update assets
-        populate();
+    playerPosition.x += playerVelocity.x; // Update player position
+
+    // Update animation frame if the player is moving
+    if (playerMoving) {
+        frameDelayCounter++;
+        if (frameDelayCounter >= frameDelay) {
+            frameDelayCounter = 0;
+            frameIndex++;
+            frameIndex %= 9; // Loop animation frames
+            playerSrc.x = (float)frameIndex * framewidth;
+        }
+    } else {
+        // Reset to the first frame if no key is pressed
+        frameIndex = 0;
+        playerSrc.x = 0;
     }
 }
 
@@ -86,7 +88,7 @@ void input() {
 void render() {
     BeginDrawing();
     ClearBackground(RAYWHITE); // Clear the background
-    drawscene();
+    drawscene();               // Draw the game scene
     EndDrawing();
 }
 
@@ -97,18 +99,13 @@ void update() {
 
 // Clean up and close the game window
 void quit() {
-    for (int i = 0; i < 3; i++) {
-        UnloadTexture(asset[i]); 
-    }
-    UnloadTexture(bg);
-    UnloadTexture(mid_bg);
     UnloadTexture(playerSprite); // Unload the player texture
-    CloseWindow(); // Close the window
+    CloseWindow();               // Close the window
 }
 
 int main() {
-    srand(static_cast<unsigned int>(time(0))); // Seed for random number generation
     init(); // Initialize the game
+
     // Main game loop
     while (running) {
         input();  // Handle input
