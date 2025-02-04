@@ -1,0 +1,4 @@
+repository "2-1-Kira/My project@18968217084123@cloud"
+  path "/"
+    br "/main"
+    co "/main"
