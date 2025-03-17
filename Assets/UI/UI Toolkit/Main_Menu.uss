@@ -1,0 +1,119 @@
+.header {
+    font-size: 40px;
+    color: rgb(49, 31, 220);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    height: 78px;
+    white-space: nowrap;
+}
+
+.button {
+    font-size: 20px;
+    width: 145px;
+    height: 30px;
+    white-space: pre;
+    -unity-text-align: middle-center;
+    -unity-text-align: middle-center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    align-self: flex-start;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-color: rgb(42, 42, 42);
+    border-width: 2px;
+    margin-top: 13px;
+    margin-right: 50px;
+    margin-left: 132px;
+    margin-bottom: 9px;
+    -unity-font-definition: url("project://database/Assets/UI/Font/RobotoSerif-VariableFont_GRAD,opsz,wdth,wght.ttf?fileID=12800000&guid=0c81c5f3b39815545b040b0be9d70924&type=3#RobotoSerif-VariableFont_GRAD,opsz,wdth,wght");
+    position: absolute;
+    transition-property: font-size;
+}
+
+.button:hover {
+    font-size: 20px;
+    width: 145px;
+    height: 30px;
+    white-space: pre;
+    -unity-text-align: middle-center;
+    -unity-text-align: middle-center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    align-self: flex-start;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-color: rgb(42, 42, 42);
+    border-width: 2px;
+    margin-top: 13px;
+    margin-right: 50px;
+    margin-left: 132px;
+    margin-bottom: 9px;
+    -unity-font-definition: url("project://database/Assets/UI/Font/RobotoSerif-VariableFont_GRAD,opsz,wdth,wght.ttf?fileID=12800000&guid=0c81c5f3b39815545b040b0be9d70924&type=3#RobotoSerif-VariableFont_GRAD,opsz,wdth,wght");
+    position: absolute;
+    transition-property: all;
+    scale: 1.2 1.2;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.button:active {
+    font-size: 20px;
+    width: 145px;
+    height: 30px;
+    white-space: pre;
+    -unity-text-align: middle-center;
+    -unity-text-align: middle-center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    align-self: flex-start;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-color: rgb(42, 42, 42);
+    border-width: 2px;
+    margin-top: 13px;
+    margin-right: 50px;
+    margin-left: 132px;
+    margin-bottom: 9px;
+    -unity-font-definition: url("project://database/Assets/UI/Font/RobotoSerif-VariableFont_GRAD,opsz,wdth,wght.ttf?fileID=12800000&guid=0c81c5f3b39815545b040b0be9d70924&type=3#RobotoSerif-VariableFont_GRAD,opsz,wdth,wght");
+    position: absolute;
+    transition-property: font-size;
+    scale: 1 1;
+    background-image: url("project://database/Assets/UI/Cyberpunk-GUI/6%20Buttons/9/9_09.png?fileID=2800000&guid=a0f0024424bb1c54eac384060d757904&type=3#9_09");
+}
+
+#newGameButton {
+    background-image: url("project://database/Assets/UI/Cyberpunk-GUI/6%20Buttons/4/4_05.png?fileID=4152405231923856886&guid=a98a1d0cc32bdb048a77f5ffddd4b67f&type=3#4_05_0");
+    background-size: cover;
+    color: rgb(244, 166, 110);
+    position: absolute;
+    top: 200px;
+    left: -40px;
+}
+
+#settingsButton {
+    background-image: url("project://database/Assets/UI/Cyberpunk-GUI/6%20Buttons/4/4_05.png?fileID=4152405231923856886&guid=a98a1d0cc32bdb048a77f5ffddd4b67f&type=3#4_05_0");
+    background-size: cover;
+    color: rgb(240, 160, 103);
+    position: absolute;
+    top: 250px;
+    left: -40px;
+}
+
+#extrasButton {
+    background-image: url("project://database/Assets/UI/Cyberpunk-GUI/6%20Buttons/4/4_05.png?fileID=4152405231923856886&guid=a98a1d0cc32bdb048a77f5ffddd4b67f&type=3#4_05_0");
+    background-size: cover;
+    color: rgb(239, 156, 94);
+    position: absolute;
+    top: 300px;
+    left: -40px;
+}
+

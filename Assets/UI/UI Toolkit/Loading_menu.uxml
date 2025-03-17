@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UI%20Toolkit/Loading_menu.uss?fileID=7433441132597879392&amp;guid=8937e982afe4bbe42af3f2d14334b677&amp;type=3#Loading_menu" />
+    <ui:VisualElement style="flex-grow: 1; align-items: flex-start; padding-top: 100px; padding-right: 100px; padding-bottom: 100px; padding-left: 100px;">
+        <ui:Label text="LOADING..." emoji-fallback-support="false" style="font-size: 60px; -unity-font-definition: url(&quot;project://database/Assets/UI/Font/RobotoSerif-VariableFont_GRAD,opsz,wdth,wght.ttf?fileID=12800000&amp;guid=0c81c5f3b39815545b040b0be9d70924&amp;type=3#RobotoSerif-VariableFont_GRAD,opsz,wdth,wght&quot;); top: 839px; height: 144px; width: 456px; color: rgb(229, 40, 40);" />
+        <ui:ProgressBar value="0.5" name="LoadingBar" high-value="1" style="width: 1250px; height: 35px; left: 0; border-left-color: rgba(99, 86, 86, 0); border-right-color: rgba(99, 86, 86, 0); border-top-color: rgba(99, 86, 86, 0); border-bottom-color: rgba(99, 86, 86, 0); top: 770px; -unity-background-image-tint-color: rgb(130, 102, 102); background-color: rgba(185, 95, 95, 0); background-size: 100% 100%;" />
+    </ui:VisualElement>
+</ui:UXML>

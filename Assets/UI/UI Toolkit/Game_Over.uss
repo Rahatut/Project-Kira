@@ -1,0 +1,57 @@
+.header {
+    font-size: 50px;
+    color: rgb(79, 233, 255);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    height: 100px;
+    white-space: nowrap;
+}
+
+.button {
+    font-size: 22px;
+    width: 160px;
+    height: 40px;
+    white-space: pre;
+    -unity-text-align: middle-center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    align-self: center;
+    border-radius: 20px;
+    border-color: rgb(90, 90, 90);
+    border-width: 3px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    -unity-font-definition: url("project://database/Assets/UI/Font/RobotoSerif-VariableFont_GRAD,opsz,wdth,wght.ttf?fileID=12800000&guid=0c81c5f3b39815545b040b0be9d70924&type=3#RobotoSerif-VariableFont_GRAD,opsz,wdth,wght");
+    position: absolute;
+    transition-property: font-size;
+}
+
+.button:hover {
+    scale: 1.2 1.2;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.button:active {
+    scale: 1 1;
+    background-image: url("project://database/Assets/UI/Cyberpunk-GUI/6%20Buttons/9/9_09.png?fileID=2800000&guid=a0f0024424bb1c54eac384060d757904&type=3#9_09");
+}
+
+#restartButton {
+    background-image: url("project://database/Assets/UI/Cyberpunk-GUI/6%20Buttons/4/4_05.png?fileID=4152405231923856886&guid=a98a1d0cc32bdb048a77f5ffddd4b67f&type=3#4_05_0");
+    background-size: cover;
+    color: rgb(255, 200, 150);
+    position: absolute;
+    top: 250px;
+    left: 0px;
+}
+
+#exitButton {
+    background-image: url("project://database/Assets/UI/Cyberpunk-GUI/6%20Buttons/4/4_05.png?fileID=4152405231923856886&guid=a98a1d0cc32bdb048a77f5ffddd4b67f&type=3#4_05_0");
+    background-size: cover;
+    color: rgb(255, 160, 120);
+    position: absolute;
+    top: 310px;
+    left: 0px;
+}

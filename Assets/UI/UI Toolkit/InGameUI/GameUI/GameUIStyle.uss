@@ -1,0 +1,15 @@
+.healthbar-size {
+    width: 540px;
+}
+
+#HealthBarMask {
+    width: 100%;
+    overflow: hidden;
+    transition: width 0.5s;
+    display: flex;
+}
+
+#HealthBarFill {
+    width: 100%;
+    height: 100%;
+}
