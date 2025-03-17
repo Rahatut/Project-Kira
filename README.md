@@ -9,3 +9,6 @@ A **soulslike** 2D platformer set in a dystopian world of war and cruelty. Play 
 - 🔬 **Lore-Rich World** – Unravel the twisted experiments of **Hephaestus Corp** and the war-torn state of **Altassia**.  
 - 💾 **Checkpoints & Autosave** – Respawn at last checkpoint upon death.  
 - 📖 **Bestiary** – Learn enemy attack patterns and weaknesses.  
+
+
+### This is just first skeleton version of project kira and more to come in future. 
